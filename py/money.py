@@ -1,4 +1,7 @@
 class Money:
+	def __str__(self):
+		return f"{self.currency} {self.amount:0.2f}"
+
 	def __init__(self, amount, currency):
 		self.amount = amount
 		self.currency = currency
