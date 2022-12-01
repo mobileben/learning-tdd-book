@@ -30,6 +30,15 @@ class TestMoney(unittest.TestCase):
 		actualValue = portfolio.evaluate("KRW")
 		self.assertEqual(expectedValue, actualValue, "%s != %s" % (expectedValue, actualValue))
 
+	def testAdditionWithMultipleMissingExchangeRates(self):
+		oneDollar = Money(1, "USD")
+		oneEuro = Money(1, "EUR")
+		oneWon = Money(1, "KRW")
+		portfolio = Portfolio()
+		portfolio.add(oneDollar, oneEuro, oneWon)
+		with self.assertRaisesRegex(Exception, "Missing exchange rate\(s\):\[USD->Kalganid,EUR->Kalganid,KRW->Kalganid\]"):
+			portfolio.evaluate("Kalganid")
+
 	def testMultiplication(self):
 		tenEuros = Money(10, "EUR")
 		twentyEuros = Money(20, "EUR")
