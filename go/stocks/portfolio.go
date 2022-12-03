@@ -30,17 +30,3 @@ func (p Portfolio) Evaluate(bank Bank, currency string) (*Money, error) {
 	failures = failures + "]"
 	return nil, errors.New("Missing exchange rate(s):" + failures)
 }
-
-func convert(money Money, currency string) (float64, bool) {
-	exchangeRates := map[string]float64 {
-		"EUR->USD": 1.2,
-		"USD->KRW": 1100,
-	}
-	if money.currency == currency {
-		return money.amount, true
-	}
-	key := money.currency + "->" + currency
-	rate, ok := exchangeRates[key]
-	return money.amount * rate, ok
-}
-
